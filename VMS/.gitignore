@@ -1,1 +1,6 @@
-../venv
+/venv
+/.idea
+../.idea/g
+VMS/__pycache__/
+orders/__pycache__/
+vendors/__pycache__/
