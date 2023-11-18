@@ -1,6 +1,8 @@
 /venv
 /.idea
-../.idea/g
+../.idea
 VMS/__pycache__/
 orders/__pycache__/
 vendors/__pycache__/
+E:\Projects\dev_assignment_base\VMS\orders\migrations
+E:\Projects\dev_assignment_base\VMS\vendors\migrations
