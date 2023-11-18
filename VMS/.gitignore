@@ -4,3 +4,6 @@
 VMS/__pycache__/
 orders/__pycache__/
 vendors/__pycache__/
+orders/migrations
+vendors/migrations
+/db.sqlite3
