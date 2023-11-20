@@ -4,5 +4,6 @@ from vendors import views
 app_name = 'vendors'
 
 urlpatterns = [
-    path('', views.vendors, name='vendor'),
+    path('', views.vendors, name='vendorList'),
+    path('<int:pk>', views.vendors, name='vendorDetail')
 ]

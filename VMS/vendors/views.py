@@ -7,16 +7,30 @@ from vendors.models import Vendor
 from vendors.serializers import VendorSerializer
 
 
-@api_view(['GET', 'POST', 'DELETE'])
-def vendors(request):
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+def vendors(request, pk=None):
     try:
         if request.method == 'POST':
-            create_vendor = Vendor.objects.create(**request.data)
+            Vendor.objects.create(**request.data)
             return Response({
                 "message": "Vendor Created"
             })
         elif request.method == 'GET':
-            vendor = Vendor.objects.all()
+            if pk:
+                vendor = Vendor.objects.filter(id=pk)
+            else:
+                vendor = Vendor.objects.all()
+            serialized = VendorSerializer(vendor, many=True)
+            return Response(serialized.data)
+        elif request.method == 'DELETE':
+            vendor = Vendor.objects.get(id=pk)
+            vendor.delete()
+            return Response({
+                "message": f"{vendor} is deleted."
+            })
+        elif request.method == 'PUT':
+            Vendor.objects.filter(id=pk).update(**request.data)
+            vendor = Vendor.objects.filter(id=pk)
             serialized = VendorSerializer(vendor, many=True)
             return Response(serialized.data)
 
