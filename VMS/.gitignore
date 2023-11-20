@@ -1,9 +1,7 @@
 /venv
 /.idea
 ../.idea/g
-VMS/__pycache__/
-orders/__pycache__/
-vendors/__pycache__/
-orders/migrations
-vendors/migrations
+*/__pycache__/
+*/migrations
 /db.sqlite3
+/run.py
