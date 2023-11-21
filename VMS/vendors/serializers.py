@@ -1,9 +1,8 @@
 from rest_framework import serializers
+from vendors import models
 
 
-class VendorSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    name = serializers.CharField(max_length=20)
-    contact_details = serializers.CharField(max_length=999)
-    address = serializers.CharField(max_length=999)
-    vendor_code = serializers.CharField(max_length=20)
+class VendorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Vendor
+        fields = '__all__'
