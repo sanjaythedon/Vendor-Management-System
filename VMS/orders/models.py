@@ -7,19 +7,18 @@ from django.db.models.signals import pre_save
 
 
 class PurchaseOrders(models.Model):
-    po_number = models.CharField(unique=True, max_length=20)
+    po_number = models.UUIDField(default=uuid.uuid4, editable=False)
     order_date = models.DateTimeField(auto_now_add=True)
     vendor = models.ForeignKey(to=Vendor, to_field='vendor_code', on_delete=models.CASCADE)
-    delivery_date = models.DateTimeField()
+    delivery_date = models.DateTimeField(null=True)
     items = models.JSONField()
     quantity = models.IntegerField()
-    status = models.CharField(max_length=20)
-    quality = models.FloatField()
+    status = models.CharField(max_length=20, null=True)
+    quality = models.FloatField(null=True)
     issue_date = models.DateTimeField(auto_now_add=True)
-    acknowledgment_date = models.DateTimeField()
+    acknowledgment_date = models.DateTimeField(null=True)
 
 
 @receiver(pre_save, sender=PurchaseOrders)
 def populate_data(sender, instance, *args, **kwargs):
-    instance.po_number = uuid.uuid4()
     instance.quantity = sum(instance.items.values())

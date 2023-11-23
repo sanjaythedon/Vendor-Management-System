@@ -6,3 +6,6 @@ class Vendor(models.Model):
     contact_details = models.TextField()
     address = models.TextField()
     vendor_code = models.CharField(unique=True, max_length=20)
+
+    def __str__(self):
+        return self.name
