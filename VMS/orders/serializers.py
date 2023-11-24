@@ -13,3 +13,16 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DeliveryDateChangeSerializer(OrderSerializer):
+    vendor = serializers.CharField(required=False)
+    items = serializers.JSONField(required=False)
+    delivery_date = serializers.DateTimeField(required=True)
+
+
+class DeliveredSerializer(OrderSerializer):
+    vendor = serializers.CharField(required=False)
+    items = serializers.JSONField(required=False)
+    quality = serializers.FloatField(required=True)
+
+
+
