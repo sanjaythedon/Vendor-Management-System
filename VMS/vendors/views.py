@@ -5,8 +5,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
-from vendors.models import Vendor
-from vendors.serializers import VendorSerializer
+from vendors.models import (Vendor,
+                            PerformanceHistory)
+from vendors.serializers import (VendorSerializer,
+                                 PerformanceMetricsSerializer,
+                                 VendorPerformanceMetricsSerializer)
 
 
 # @api_view(['GET', 'POST', 'DELETE', 'PUT'])
@@ -94,3 +97,20 @@ class VendorsDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class PerformanceMetrics(generics.RetrieveAPIView):
+    queryset = Vendor.objects.all()
+    serializer_class = VendorPerformanceMetricsSerializer
+    lookup_field = 'id'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+class PerformanceMetricsHistory(generics.ListAPIView):
+    queryset = PerformanceHistory.objects.all()
+    serializer_class = PerformanceMetricsSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
