@@ -14,8 +14,15 @@ from datetime import datetime
 
 
 class Orders(generics.ListCreateAPIView):
-    queryset = PurchaseOrders.objects.all()
+    # queryset = PurchaseOrders.objects.all()
     serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        queryset = PurchaseOrders.objects.all()
+        vendor_id = self.request.query_params.get('vendor')
+        if vendor_id:
+            queryset = queryset.filter(vendor=vendor_id)
+        return queryset
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -78,6 +85,7 @@ class AcknowledgeOrder(generics.GenericAPIView):
             po = PurchaseOrders.objects.get(id=id)
             po.acknowledgment_date = datetime.now()
             po.delivery_date = request.data['delivery_date']
+            print(self.request.data['delivery_date'])
             a = po.save(update_fields=['acknowledgment_date', 'delivery_date'])
             print(a)
             # order = self.queryset.filter(id=id)

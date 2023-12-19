@@ -5,7 +5,7 @@ from vendors import models
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Vendor
-        fields = '__all__'
+        fields = "__all__"
 
 
 class VendorPerformanceMetricsSerializer(serializers.ModelSerializer):

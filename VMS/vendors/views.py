@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
@@ -84,7 +85,6 @@ class VendorsList(generics.ListCreateAPIView):
 
 
 class VendorsDetail(generics.RetrieveUpdateDestroyAPIView):
-
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
     lookup_field = 'id'
@@ -93,7 +93,7 @@ class VendorsDetail(generics.RetrieveUpdateDestroyAPIView):
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+        return self.partial_update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
@@ -114,3 +114,23 @@ class PerformanceMetricsHistory(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+# class Summa(generics.GenericAPIView):
+#     def get(self, *args, **kwargs):
+#         return Response({
+#             "msg": "Ommala mariyaathaiya vanthuru"
+#         }, status=200)
+
+# class GetAllVendors(APIView):
+#     def get(self, *args, **kwargs):
+#         vendor = Vendor.objects.all()
+#         # print(list(vendor)[1].name)
+#         ser = VendorSerializer(vendor, many=True)
+#         # print(f"All vendors: {ser.data}")
+#         return Response(ser.data)
+
+# @api_view()
+# def summa(request):
+#     vendor = Vendor.objects.all()
+#     print(vendor)
