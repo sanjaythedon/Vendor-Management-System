@@ -12,8 +12,8 @@ from orders.signals import UpdateSignalSender
 
 
 class PurchaseOrders(models.Model):
-    po_number = models.UUIDField(default=uuid.uuid4, editable=False)
-    order_date = models.DateTimeField(auto_now_add=True)
+    po_number = models.CharField(unique=True, max_length=20)
+    order_date = models.DateTimeField()
     vendor = models.ForeignKey(to=Vendor, to_field='vendor_code', on_delete=models.CASCADE)
     delivery_date = models.DateTimeField(null=True)
     items = models.JSONField()
@@ -128,3 +128,4 @@ def set_quality_rating_avg(instance, *args, **kwargs):
 # def set_response_time(*args, **kwargs):
 #     print(f"{args=}")
 #     print(f"{kwargs=}")
+

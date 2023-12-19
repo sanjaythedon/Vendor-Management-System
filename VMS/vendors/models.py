@@ -26,5 +26,3 @@ class PerformanceHistory(models.Model):
     average_response_time = models.FloatField()
     fulfillment_rate = models.FloatField()
 
-
-
