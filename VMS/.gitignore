@@ -1,7 +1,6 @@
 /venv
 /.idea
-../.idea/g
-*/__pycache__/
+__pycache__
 */migrations
 /db.sqlite3
 /run.py

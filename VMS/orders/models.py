@@ -12,8 +12,8 @@ from orders.signals import UpdateSignalSender
 
 
 class PurchaseOrders(models.Model):
-    po_number = models.CharField(unique=True, max_length=20)
-    order_date = models.DateTimeField()
+    po_number = models.UUIDField(default=uuid.uuid4, editable=False)
+    order_date = models.DateTimeField(auto_now_add=True)
     vendor = models.ForeignKey(to=Vendor, to_field='vendor_code', on_delete=models.CASCADE)
     delivery_date = models.DateTimeField(null=True)
     items = models.JSONField()
